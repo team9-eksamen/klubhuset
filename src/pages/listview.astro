@@ -1,81 +1,170 @@
 ---
-import "../css/custom.css"
-import "../css/general.css"
-import ListCard from "../components/ListCard.astro"
-import ArtistLayout from "../layouts/ArtistLayout.astro"
+import "../css/custom.css";
+import "../css/general.css";
+import ListCard from "../components/ListCard.astro";
+import ArtistLayout from "../layouts/ArtistLayout.astro";
 
 const endpoint =
-  "https://cslftqskycbszssbrjfq.supabase.co/rest/v1/artister?select=*"
+  "https://cslftqskycbszssbrjfq.supabase.co/rest/v1/artister?select=*";
 
 const options = {
-  headers: { apikey: "sb_publishable_uJBiElMI8evEQetR2TtT2g_2o4KGmfP" }};
+  headers: { apikey: "sb_publishable_uJBiElMI8evEQetR2TtT2g_2o4KGmfP" },
+};
 
 const data = await fetch(endpoint, options).then((response) => response.json());
-
-
 ---
 
 <ArtistLayout>
   <section class="topsection">
-    <div id="glitchbox">
-         <h1>Artists</h1>
-         <p>Artists</p>
-         <p>Artists</p>
-         
-        </div>
+    <h1>Artists</h1>
+
     <div class="filterbar">
       <div>
-      <button class="filter-toggle" data-target="producer">Producer <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
-  <path d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></button>
-      <button class="filter-toggle" data-target="genre">Genre <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
-  <path d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></button>
-      </div> 
-      <button id="sort" class="filter-toggle" data-target="sort">Sort by <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
-  <path d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></button>
+        <button class="filter-toggle" data-target="producer"
+          >Producer <svg
+            class="svg"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="8"
+            viewBox="0 0 16 8"
+            fill="none"
+          >
+            <path
+              d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg></button
+        >
+        <button class="filter-toggle" data-target="genre"
+          >Genre <svg
+            class="svg"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="8"
+            viewBox="0 0 16 8"
+            fill="none"
+          >
+            <path
+              d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg></button
+        >
+      </div>
+      <button id="sort" class="filter-toggle" data-target="sort"
+        >Sort by <svg
+          class="svg"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="8"
+          viewBox="0 0 16 8"
+          fill="none"
+        >
+          <path
+            d="M14.2656 1.82107C14.7125 1.46852 14.4632 0.75 13.894 0.75L1.35263 0.75C0.78341 0.75 0.534117 1.46852 0.98102 1.82107L7.25168 6.76779C7.4696 6.9397 7.77698 6.9397 7.9949 6.76779L14.2656 1.82107Z"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg></button
+      >
     </div>
     <div id="filter-panel">
       <div class="filter-content" data-panel="producer" hidden>
-        <button class="filter-btn producer-btn" data-producer="christian">Christian Afel</button>
-        <button class="filter-btn producer-btn" data-producer="Mads Mølgaard Helbæk">Mads Mølgaard</button>
-        <button class="filter-btn producer-btn" data-producer="peter">Peter Sloth</button>
-        <button class="filter-btn producer-btn" data-producer="felix">Felix Ziska</button>
-        <button class="filter-btn producer-btn" data-producer="joakim">Joakim Lambek</button>
+        <button class="filter-btn producer-btn" data-producer="christian"
+          >Christian Afel</button
+        >
+        <button
+          class="filter-btn producer-btn"
+          data-producer="Mads Mølgaard Helbæk">Mads Mølgaard</button
+        >
+        <button class="filter-btn producer-btn" data-producer="peter"
+          >Peter Sloth</button
+        >
+        <button class="filter-btn producer-btn" data-producer="felix"
+          >Felix Ziska</button
+        >
+        <button class="filter-btn producer-btn" data-producer="joakim"
+          >Joakim Lambek</button
+        >
       </div>
       <div class="filter-content" data-panel="genre" hidden>
-        <button data-genre="Alternative" class="filter-btn genre-btn">Alternative</button>
-        <button data-genre="Alternative Pop" class="filter-btn genre-btn">Alternative pop</button>
-        <button data-genre="Alternative rock" class="filter-btn genre-btn">Alternative rock</button>
-        <button data-genre="Ambient" class="filter-btn genre-btn">Ambient</button>
-        <button data-genre="Chamber pop" class="filter-btn genre-btn">Chamber pop</button>
-        <button data-genre="Classic" class="filter-btn genre-btn">Classic</button>
-        <button data-genre="Contemporary" class="filter-btn genre-btn">Contemporary</button>
-        <button data-genre="Contemporary jazz" class="filter-btn genre-btn">Contemporary jazz</button>
-        <button data-genre="Dream pop" class="filter-btn genre-btn">Dream pop</button>
-        <button data-genre="Electronic" class="filter-btn genre-btn">Electronic</button>
-        <button data-genre="Electronic pop" class="filter-btn genre-btn">Electronic pop</button>
-        <button data-genre="Experimental" class="filter-btn genre-btn">Experimental</button>
+        <button data-genre="Alternative" class="filter-btn genre-btn"
+          >Alternative</button
+        >
+        <button data-genre="Alternative Pop" class="filter-btn genre-btn"
+          >Alternative pop</button
+        >
+        <button data-genre="Alternative rock" class="filter-btn genre-btn"
+          >Alternative rock</button
+        >
+        <button data-genre="Ambient" class="filter-btn genre-btn"
+          >Ambient</button
+        >
+        <button data-genre="Chamber pop" class="filter-btn genre-btn"
+          >Chamber pop</button
+        >
+        <button data-genre="Classic" class="filter-btn genre-btn"
+          >Classic</button
+        >
+        <button data-genre="Contemporary" class="filter-btn genre-btn"
+          >Contemporary</button
+        >
+        <button data-genre="Contemporary jazz" class="filter-btn genre-btn"
+          >Contemporary jazz</button
+        >
+        <button data-genre="Dream pop" class="filter-btn genre-btn"
+          >Dream pop</button
+        >
+        <button data-genre="Electronic" class="filter-btn genre-btn"
+          >Electronic</button
+        >
+        <button data-genre="Electronic pop" class="filter-btn genre-btn"
+          >Electronic pop</button
+        >
+        <button data-genre="Experimental" class="filter-btn genre-btn"
+          >Experimental</button
+        >
         <button data-genre="Folk" class="filter-btn genre-btn">Folk</button>
-        <button data-genre="Funk pop" class="filter-btn genre-btn">Funk pop</button>
+        <button data-genre="Funk pop" class="filter-btn genre-btn"
+          >Funk pop</button
+        >
         <button data-genre="Fusion" class="filter-btn genre-btn">Fusion</button>
-        <button data-genre="Garage rock" class="filter-btn genre-btn">Garage rock</button>
+        <button data-genre="Garage rock" class="filter-btn genre-btn"
+          >Garage rock</button
+        >
         <button data-genre="Hiphop" class="filter-btn genre-btn">Hiphop</button>
         <button data-genre="Indie" class="filter-btn genre-btn">Indie</button>
-        <button data-genre="Indie pop" class="filter-btn genre-btn">Indie pop</button>
-        <button data-genre="Indie rock" class="filter-btn genre-btn">Indie rock</button>
+        <button data-genre="Indie pop" class="filter-btn genre-btn"
+          >Indie pop</button
+        >
+        <button data-genre="Indie rock" class="filter-btn genre-btn"
+          >Indie rock</button
+        >
         <button data-genre="Jazz" class="filter-btn genre-btn">Jazz</button>
-        <button data-genre="Nordic folk" class="filter-btn genre-btn">Nordic folk</button>
+        <button data-genre="Nordic folk" class="filter-btn genre-btn"
+          >Nordic folk</button
+        >
         <button data-genre="Pop" class="filter-btn genre-btn">Pop</button>
-        <button data-genre="Pop rock" class="filter-btn genre-btn">Pop rock</button>
-        <button data-genre="Power pop" class="filter-btn genre-btn">Power pop</button>
-        <button data-genre="Progressive rock" class="filter-btn genre-btn">Progressive rock</button>
-        <button data-genre="Psychedelic rock" class="filter-btn genre-btn">Psychedelic rock</button>
+        <button data-genre="Pop rock" class="filter-btn genre-btn"
+          >Pop rock</button
+        >
+        <button data-genre="Power pop" class="filter-btn genre-btn"
+          >Power pop</button
+        >
+        <button data-genre="Progressive rock" class="filter-btn genre-btn"
+          >Progressive rock</button
+        >
+        <button data-genre="Psychedelic rock" class="filter-btn genre-btn"
+          >Psychedelic rock</button
+        >
         <button data-genre="R&B" class="filter-btn genre-btn">R&B</button>
         <button data-genre="Rap" class="filter-btn genre-btn">Rap</button>
         <button data-genre="Rock" class="filter-btn genre-btn">Rock</button>
-        <button data-genre="Singer-songwriter" class="filter-btn genre-btn">Singer-songwriter</button>
+        <button data-genre="Singer-songwriter" class="filter-btn genre-btn"
+          >Singer-songwriter</button
+        >
       </div>
       <div class="filter-content" data-panel="sort" hidden>
         <button data-artist="az" class="sort-btn">Artist A-Z</button>
@@ -87,8 +176,8 @@ const data = await fetch(endpoint, options).then((response) => response.json());
   </section>
   <section id="projectsection">
     <!-- <p>pagination goes here</p> -->
-    <div class="projectcontainer"> 
-      {data.map((project) => <ListCard {project}/> )}
+    <div class="projectcontainer">
+      {data.map((project) => <ListCard {project} />)}
     </div>
   </section>
 </ArtistLayout>
@@ -97,138 +186,141 @@ const data = await fetch(endpoint, options).then((response) => response.json());
   html {
     height: 100%;
   }
-  
+
   body {
     background-image: var(--gradient-dark);
     background-attachment: fixed;
     min-height: 100%;
   }
 
-   section {
+  section {
     margin: 0px 5vw 0px 5vw;
-   }
+  }
 
-   .topsection {
+  .topsection {
     margin-top: 40px;
     margin-bottom: 20px;
-   }
+  }
 
-   #glitchbox {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-    }
+  #glitchbox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 
-    #glitchbox h1, #glitchbox p{
-        font-family: var(--gopher);
-        font-size: var(--h1-size);
-        font-weight: var(--bold);
-        line-height: 85px;
-        mix-blend-mode: screen;
-        grid-row: 1/2;
-        grid-column: 1/2;
-    }
+  #glitchbox h1,
+  #glitchbox p {
+    font-family: var(--gopher);
+    font-size: var(--h1-size);
+    font-weight: var(--bold);
+    line-height: 85px;
+    mix-blend-mode: screen;
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
 
-    #glitchbox h1:nth-child(1) {
-        color: #f00;
-        filter: blur(1.5px);
-        mix-blend-mode: lighten;
-    }
+  #glitchbox h1:nth-child(1) {
+    color: #f00;
+    filter: blur(1.5px);
+    mix-blend-mode: lighten;
+  }
 
-    #glitchbox p:nth-child(2) {
-        color: #00fd00;
-        mix-blend-mode: screen;
-        filter: blur(4px);
-        padding-left: 3px;
-    }
+  #glitchbox p:nth-child(2) {
+    color: #00fd00;
+    mix-blend-mode: screen;
+    filter: blur(4px);
+    padding-left: 3px;
+  }
 
-    #glitchbox p:nth-child(3) {
-        color: #0000ff;
-        filter: blur(1.5px);
-        mix-blend-mode: lighten;
-        padding-left: 6px;
-    }
+  #glitchbox p:nth-child(3) {
+    color: #0000ff;
+    filter: blur(1.5px);
+    mix-blend-mode: lighten;
+    padding-left: 6px;
+  }
 
-
-   button {
+  button {
     background-color: transparent;
     font-family: var(--stolzl);
     color: var(--secondary);
     border: none;
-   }
+  }
 
-   #sort, .filter-btn, .sort-btn {
+  #sort,
+  .filter-btn,
+  .sort-btn {
     border: solid 1px var(--secondary);
-   }
+  }
 
-   .filter-btn, .sort-btn {
+  .filter-btn,
+  .sort-btn {
     padding: 3px 18px 3px 6px;
     border-top-right-radius: 75px;
-   }
+  }
 
-   #sort {
+  #sort {
     padding: 3px 6px 3px 18px;
     border-top-left-radius: 75px;
-   }
+  }
 
-   #sort svg {
+  #sort svg {
     margin-left: 12vw;
-   }
+  }
 
-   .active {
+  .active {
     background-color: var(--contrast);
     border: solid 1px var(--contrast);
     stroke: var(--contrast);
-   }
+  }
 
-   svg {
+  svg {
     stroke: var(--secondary);
-   }
+  }
 
-   .activebtn svg {
+  .activebtn svg {
     stroke: var(--contrast);
-   }
+  }
 
-   .activebtn {
+  .activebtn {
     color: var(--contrast);
-   }
+  }
 
-   #sort.activebtn {
+  #sort.activebtn {
     border-color: var(--contrast) !important;
-   }
+  }
 
-   .filterbar {
+  .filterbar {
     border-bottom: solid 0.5px var(--secondary);
     display: flex;
     justify-content: space-between;
     padding: 8px 0px;
     margin: 20px 0px 8px 0px;
-   }
+  }
 
-   .filterbar div button {
+  .filterbar div button {
     padding: 3px 6px 3px 0px;
-   }
+  }
 
-   .filterbar div button:nth-child(2) {
+  .filterbar div button:nth-child(2) {
     border-right: solid 1px var(--secondary);
     border-left: solid 1px var(--secondary);
     padding-left: 6px;
-   }
+  }
 
-   /* .filter-content {
+  /* .filter-content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
    } */
 
-   .filter-btn {
+  .filter-btn {
     margin: 2px;
-   }
+  }
 
-   .projectcontainer {
+  .projectcontainer {
     margin-bottom: 40px;
-   }
+  }
 
-   @media (min-width: 850px) {
+  @media (min-width: 850px) {
     .projectcontainer {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -236,19 +328,26 @@ const data = await fetch(endpoint, options).then((response) => response.json());
       border-top: solid 0.5px var(--secondary);
       padding-top: 15px;
       padding-bottom: 15px;
-      background: linear-gradient(to right, transparent 0%, transparent 49.9%, var(--secondary) 50%, transparent 50.1%);
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        transparent 49.9%,
+        var(--secondary) 50%,
+        transparent 50.1%
+      );
     }
 
     .project {
       padding: 16px;
     }
 
-    #glitchbox h1, #glitchbox p{
-       font-size: var(--h1-size-desk);
-       line-height: 200px;
-       font-weight: var(--medium);
+    #glitchbox h1,
+    #glitchbox p {
+      font-size: var(--h1-size-desk);
+      line-height: 200px;
+      font-weight: var(--medium);
     }
-   }
+  }
 </style>
 
 <script>
@@ -257,132 +356,151 @@ const data = await fetch(endpoint, options).then((response) => response.json());
   // Viser og skjuler filtreringspaneler
   const toggles = document.querySelectorAll<HTMLElement>(".filter-toggle");
   const panels = document.querySelectorAll<HTMLElement>(".filter-content");
-  const svg = document.querySelectorAll<HTMLElement>(".svg")
-  
+  const svg = document.querySelectorAll<HTMLElement>(".svg");
 
-  toggles.forEach(toggle => {
-  toggle.addEventListener("click", () => {
-    const target = toggle.dataset.target;
-    const targetPanel = [...panels].find(p => p.dataset.panel === target);
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const target = toggle.dataset.target;
+      const targetPanel = [...panels].find((p) => p.dataset.panel === target);
 
-    panels.forEach(p => {
-      if (p.dataset.panel !== target) p.hidden = true;
+      panels.forEach((p) => {
+        if (p.dataset.panel !== target) p.hidden = true;
+      });
+      // Fjern active fra andre toggles
+      toggles.forEach((t) => {
+        if (t !== toggle) t.classList.remove("activebtn");
+      });
+
+      targetPanel.hidden = !targetPanel.hidden;
+      toggle.classList.toggle("activebtn", !targetPanel.hidden);
     });
-    // Fjern active fra andre toggles
-    toggles.forEach(t => { if (t !== toggle) t.classList.remove("activebtn") });
+  });
 
-    targetPanel.hidden = !targetPanel.hidden;
-    toggle.classList.toggle("activebtn", !targetPanel.hidden);
-   });
-   });
+  // Funktion der lytter på knapper, ændrer deres udseende og sender videre til rette filtrering
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.addEventListener("click", btnactive);
+  });
 
+  function btnactive(e) {
+    const valgt = e.target;
+    const cards = document.querySelectorAll(".listcard");
+    const btns = document.querySelectorAll(".filter-btn");
 
-// Funktion der lytter på knapper, ændrer deres udseende og sender videre til rette filtrering
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', btnactive );
-});
-
-function btnactive(e) {
-  const valgt = e.target;
-  const cards = document.querySelectorAll(".listcard");
-  const btns = document.querySelectorAll(".filter-btn");
-
-  if (valgt.classList.contains("active")) {
-    valgt.classList.remove("active");
-    cards.forEach((card) => { card.classList.remove("hide"); });
-  } else {
-    btns.forEach((btn) => { btn.classList.remove("active"); });
-    valgt.classList.add("active");
-
-    if (valgt.classList.contains("producer-btn")) {
-      filterproducer(e);
+    if (valgt.classList.contains("active")) {
+      valgt.classList.remove("active");
+      cards.forEach((card) => {
+        card.classList.remove("hide");
+      });
     } else {
-      filtergenre(e);
+      btns.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+      valgt.classList.add("active");
+
+      if (valgt.classList.contains("producer-btn")) {
+        filterproducer(e);
+      } else {
+        filtergenre(e);
+      }
     }
   }
-}
 
-// Filtrering
+  // Filtrering
 
   // Producere
   function filterproducer(e) {
-  const valgtproducer = e.target.dataset.producer;
-  const cards = document.querySelectorAll(".listcard");
+    const valgtproducer = e.target.dataset.producer;
+    const cards = document.querySelectorAll(".listcard");
 
-  cards.forEach((card) => {
-    if (card.dataset.producer == valgtproducer) {
-      card.classList.remove("hide");
-    } else {
-      card.classList.add("hide");
-    }
-  })
-
-}
+    cards.forEach((card) => {
+      if (card.dataset.producer == valgtproducer) {
+        card.classList.remove("hide");
+      } else {
+        card.classList.add("hide");
+      }
+    });
+  }
 
   // Genre
   function filtergenre(e) {
-  const cards = document.querySelectorAll<HTMLElement>(".listcard");
-  const valgtgenre = e.target.dataset.genre;
-  cards.forEach((card) => {
-    if (card.dataset.genre && JSON.parse(card.dataset.genre).includes(valgtgenre)) {
-      card.classList.remove("hide");
-    } else {
-      card.classList.add("hide");
-    }
-  })
-}
-
-
-// Sortering
-// Knapper ændrer udseende
-document.querySelectorAll('.sort-btn').forEach(btn => {
-  btn.addEventListener('click', sortactive );
-});
-
-function sortactive(e) {
-  const valgt = e.target;
-  const cards = document.querySelectorAll(".listcard");
-  const btns = document.querySelectorAll(".sort-btn");
-
-  if (valgt.classList.contains("active")) {
-    valgt.classList.remove("active");
-    cards.forEach((card) => { card.classList.remove("hide"); });
-  } else {
-    btns.forEach((btn) => { btn.classList.remove("active"); });
-    valgt.classList.add("active");
-    sort(e)
+    const cards = document.querySelectorAll<HTMLElement>(".listcard");
+    const valgtgenre = e.target.dataset.genre;
+    cards.forEach((card) => {
+      if (
+        card.dataset.genre &&
+        JSON.parse(card.dataset.genre).includes(valgtgenre)
+      ) {
+        card.classList.remove("hide");
+      } else {
+        card.classList.add("hide");
+      }
+    });
   }
-}
 
-// Selve sortering foregår her
+  // Sortering
+  // Knapper ændrer udseende
+  document.querySelectorAll(".sort-btn").forEach((btn) => {
+    btn.addEventListener("click", sortactive);
+  });
 
-function sort(e) {
-  const cards = document.querySelectorAll<HTMLElement>(".listcard");
-  const container = document.querySelector(".projectcontainer");
-  container.textContent="";
-  let newList;
+  function sortactive(e) {
+    const valgt = e.target;
+    const cards = document.querySelectorAll(".listcard");
+    const btns = document.querySelectorAll(".sort-btn");
 
-  if (e.target.dataset.year) {
-    const valgtdir = e.target.dataset.year;
-    if (valgtdir == "acc") {
-    newList = [...cards].sort((firstItem, secondItem) => firstItem.dataset.year - secondItem.dataset.year,
-  );
-  } else {
-    newList = [...cards].sort((firstItem, secondItem) => secondItem.dataset.year - firstItem.dataset.year,
-  );
-  } 
-  } else {
-    const valgtdir = e.target.dataset.artist;
-    if (valgtdir == "az") {
-      newList = [...cards].sort((firstItem, secondItem) => firstItem.dataset.artist.localeCompare(secondItem.dataset.artist, "da")
-  );
+    if (valgt.classList.contains("active")) {
+      valgt.classList.remove("active");
+      cards.forEach((card) => {
+        card.classList.remove("hide");
+      });
     } else {
-      newList = [...cards].sort((firstItem, secondItem) => secondItem.dataset.artist.localeCompare(firstItem.dataset.artist, "da")
-  );
+      btns.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+      valgt.classList.add("active");
+      sort(e);
     }
   }
-   newList.forEach((card) => container.append(card));
-}
 
+  // Selve sortering foregår her
 
+  function sort(e) {
+    const cards = document.querySelectorAll<HTMLElement>(".listcard");
+    const container = document.querySelector(".projectcontainer");
+    container.textContent = "";
+    let newList;
+
+    if (e.target.dataset.year) {
+      const valgtdir = e.target.dataset.year;
+      if (valgtdir == "acc") {
+        newList = [...cards].sort(
+          (firstItem, secondItem) =>
+            firstItem.dataset.year - secondItem.dataset.year,
+        );
+      } else {
+        newList = [...cards].sort(
+          (firstItem, secondItem) =>
+            secondItem.dataset.year - firstItem.dataset.year,
+        );
+      }
+    } else {
+      const valgtdir = e.target.dataset.artist;
+      if (valgtdir == "az") {
+        newList = [...cards].sort((firstItem, secondItem) =>
+          firstItem.dataset.artist.localeCompare(
+            secondItem.dataset.artist,
+            "da",
+          ),
+        );
+      } else {
+        newList = [...cards].sort((firstItem, secondItem) =>
+          secondItem.dataset.artist.localeCompare(
+            firstItem.dataset.artist,
+            "da",
+          ),
+        );
+      }
+    }
+    newList.forEach((card) => container.append(card));
+  }
 </script>

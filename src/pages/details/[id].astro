@@ -1,10 +1,10 @@
 ---
 // @ts-nocheck
-import "../../css/custom.css"
-import "../../css/general.css"
-import Layout from "../../layouts/Layout.astro"
-import ArtistLayout from "../../layouts/ArtistLayout.astro"
-import ListCard from "../../components/ListCard.astro"
+import "../../css/custom.css";
+import "../../css/general.css";
+import Layout from "../../layouts/Layout.astro";
+import ArtistLayout from "../../layouts/ArtistLayout.astro";
+import ListCard from "../../components/ListCard.astro";
 
 export async function getStaticPaths() {
   const endpoint =
@@ -30,77 +30,84 @@ const { project } = Astro.props;
 // Hent albums med samme genre (ekskluder det nuværende)
 const res = await fetch(
   `https://cslftqskycbszssbrjfq.supabase.co/rest/v1/artister?select=*`,
-  { headers: { apikey: "sb_publishable_uJBiElMI8evEQetR2TtT2g_2o4KGmfP" } }
+  { headers: { apikey: "sb_publishable_uJBiElMI8evEQetR2TtT2g_2o4KGmfP" } },
 );
 const allAlbums = await res.json();
 
 const related = allAlbums
-  .filter(a => a.titel_album !== project.titel_album)
-  .filter(a => a.genre?.includes(project.genre[0]))
+  .filter((a) => a.titel_album !== project.titel_album)
+  .filter((a) => a.genre?.includes(project.genre[0]))
   .slice(0, 2);
-  
 ---
 
 <ArtistLayout>
-<section id="topsection">
-<div id="outer">
-    <div id="spotifywrapper">
-    <img src={project.albumcover.replace(/^"|"$/g, '')} />
-    </div>
-        <div id="spotify">
-         <iframe data-testid="embed-iframe" style="border-radius:12px" src={project.spotify.replace(/^"|"$/g, '')} width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>    
-    <div id="inner">
+  <section id="topsection">
+    <div id="outer">
+      <div id="spotifywrapper">
+        <img src={project.albumcover.replace(/^"|"$/g, "")} />
+      </div>
+      <div id="spotify">
+        <iframe
+          data-testid="embed-iframe"
+          style="border-radius:12px"
+          src={project.spotify.replace(/^"|"$/g, "")}
+          width="100%"
+          height="152"
+          frameBorder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"></iframe>
+      </div>
+      <div id="inner">
         <div id="glitchbox">
-         <h1>{project.titel_album}</h1>
-         <p>{project.titel_album}</p>
-         <p>{project.titel_album}</p>
+          <h1>{project.titel_album}</h1>
+          <p>{project.titel_album}</p>
+          <p>{project.titel_album}</p>
         </div>
         <h5>{project.artist}</h5>
         <h6>Album · {project.year}</h6>
         <div id="details">
-            <div id="genre">
-                <h6>Genre:</h6>
-                <p class="cap2">{project.genre.join(', ')}</p>
+          <div id="genre">
+            <h6>Genre:</h6>
+            <p class="cap2">{project.genre.join(", ")}</p>
+          </div>
+          <div id="about">
+            <h6>[About the album]</h6>
+            <div id="aboutlists">
+              <div id="list1">
+                <p class="cap2">Producer</p>
+                <p class="cap2">Engineer</p>
+                <p class="cap2">Label</p>
+                <p class="cap2">Accolades</p>
+              </div>
+              <div id="list2">
+                <p class="cap2">Mads Mølgaard</p>
+                <p class="cap2">Mads Mølgaard</p>
+                <p class="cap2">Sony</p>
+                <p class="cap2">DMA</p>
+              </div>
             </div>
-            <div id="about">
-                <h6>[About the album]</h6>
-                <div id="aboutlists">
-                    <div id="list1">
-                        <p class="cap2">Producer</p>
-                        <p class="cap2">Engineer</p>
-                        <p class="cap2">Label</p>
-                        <p class="cap2">Accolades</p>
-                    </div>
-                    <div id="list2">
-                        <p class="cap2">Mads Mølgaard</p>
-                        <p class="cap2">Mads Mølgaard</p>
-                        <p class="cap2">Sony</p>
-                        <p class="cap2">DMA</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</section>
-<section id="bottomsection">
-<div id="samegenre">
-    <a class="ctal" href="/">{project.genre[0]}</a>
-    <h3>Same genre</h2>
-</div>
-<div id="container">
-    {related.map((project) => <ListCard {project} />)}
-</div>
-
-</section>
+  </section>
+  <section id="bottomsection">
+    <div id="samegenre">
+      <a class="ctal" href="/">{project.genre[0]}</a>
+      <h3>Same genre</h3>
+    </div>
+    <div id="container">
+      {related.map((project) => <ListCard {project} />)}
+    </div>
+  </section>
 </ArtistLayout>
 
 <style>
-   html {
+  html {
     height: 100%;
   }
-  
+
   body {
     background-image: var(--gradient-dark);
     background-attachment: fixed;
@@ -108,177 +115,179 @@ const related = allAlbums
   }
 
   section {
-    width: 96vw;;
+    width: 96vw;
     margin: 0 auto;
   }
 
-    #spotifywrapper img {
-        max-width: 650px;
-        margin: 0 auto;
-    }
+  #spotifywrapper img {
+    max-width: 650px;
+    margin: 0 auto;
+  }
 
-    #spotify {
-        /* max-width: 650px; */
-        margin: 0 auto;
-    }
-    
-    #glitchbox {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-        margin-top: 32px;
-        margin-bottom: 16px;
-    }
+  #spotify {
+    /* max-width: 650px; */
+    margin: 0 auto;
+  }
 
-    #glitchbox h1, #glitchbox p{
-        text-transform: uppercase;
-        letter-spacing: -3.45px;
-        font-size: 115px;
-        line-height: 105px;
-        font-family: var(--gopher);
-        mix-blend-mode: screen;
-        font-weight: 700;
-        grid-row: 1/2;
-        grid-column: 1/2;
-    }
+  #glitchbox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
 
-    #glitchbox h1:nth-child(1) {
-        color: #f00;
-        filter: blur(1.5px);
-        mix-blend-mode: lighten;
-    }
+  #glitchbox h1,
+  #glitchbox p {
+    text-transform: uppercase;
+    letter-spacing: -3.45px;
+    font-size: 115px;
+    line-height: 105px;
+    font-family: var(--gopher);
+    mix-blend-mode: screen;
+    font-weight: 700;
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
 
-    #glitchbox p:nth-child(2) {
-        color: #00fd00;
-        mix-blend-mode: lighten;
-        filter: blur(1.5px);
-        padding-left: 3px;
-    }
+  #glitchbox h1:nth-child(1) {
+    color: #f00;
+    filter: blur(1.5px);
+    mix-blend-mode: lighten;
+  }
 
-    #glitchbox p:nth-child(3) {
-        color: #0000ff;
-        filter: blur(1.5px);
-        mix-blend-mode: lighten;
-        padding-left: 6px;
-    }
+  #glitchbox p:nth-child(2) {
+    color: #00fd00;
+    mix-blend-mode: lighten;
+    filter: blur(1.5px);
+    padding-left: 3px;
+  }
 
-    #inner h6, #inner h5 {
-        color: var(--contrast);
-    }
+  #glitchbox p:nth-child(3) {
+    color: #0000ff;
+    filter: blur(1.5px);
+    mix-blend-mode: lighten;
+    padding-left: 6px;
+  }
 
-    h5 {
-        margin-bottom: 2px;
-    }
+  #inner h6,
+  #inner h5 {
+    color: var(--contrast);
+  }
 
-    #about h6, #genre h6 {
-        margin-bottom: 4px;
-    }
+  h5 {
+    margin-bottom: 2px;
+  }
 
-    #details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin-top: 24px;
-        margin-bottom: 16px;
-    }
+  #about h6,
+  #genre h6 {
+    margin-bottom: 4px;
+  }
 
-    #aboutlists {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
+  #details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
 
-    #samegenre {
-        display: flex;
-        justify-content: end;
-        align-items: end;
-        margin-bottom: 8px;
-    }
+  #aboutlists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
-    #samegenre h3 {
-        text-transform: uppercase;
-        margin-left: 16px;
-    }
+  #samegenre {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-bottom: 8px;
+  }
 
-    #samegenre a {
-        border: solid 1px var(--secondary);
-        padding: 3px 6px 3px 18px;
-        border-top-left-radius: 75px;
-        min-width: 70px;
-        text-align: right;
-        color: var(--secondary);
-        text-decoration: none;
-        height: fit-content;
-    }
+  #samegenre h3 {
+    text-transform: uppercase;
+    margin-left: 16px;
+  }
 
-    #samegenre a:hover {
-        border-color: var(--contrast);
-        color: var(--contrast);
-    }
+  #samegenre a {
+    border: solid 1px var(--secondary);
+    padding: 3px 6px 3px 18px;
+    border-top-left-radius: 75px;
+    min-width: 70px;
+    text-align: right;
+    color: var(--secondary);
+    text-decoration: none;
+    height: fit-content;
+  }
 
-    #topsection {
+  #samegenre a:hover {
+    border-color: var(--contrast);
+    color: var(--contrast);
+  }
+
+  #topsection {
     margin-top: 20px;
     margin-bottom: 20px;
     border-bottom: solid 0.5px var(--secondary);
-   }
+  }
 
-    @media (min-width: 850px) {
-    
-        #outer {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            grid-template-rows: 1fr auto;
-        }
+  @media (min-width: 850px) {
+    #outer {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      grid-template-rows: 1fr auto;
+    }
 
-        #inner {
-            order: -1;
-            margin-right: 16px;
-        }
+    #inner {
+      order: -1;
+      margin-right: 16px;
+    }
 
-        #glitchbox {
-            margin-top: 0;
-        }
+    #glitchbox {
+      margin-top: 0;
+    }
 
-        #details {
-            width: fit-content;
-            place-self: end end;
-        }
+    #details {
+      width: fit-content;
+      place-self: end end;
+    }
 
-        #genre {
-            display: flex;
-            justify-content: space-between;
-        }
+    #genre {
+      display: flex;
+      justify-content: space-between;
+    }
 
-        #genre p {
-            color: var(--contrast);
-            padding-right: 32px;
-        }
+    #genre p {
+      color: var(--contrast);
+      padding-right: 32px;
+    }
 
-         #samegenre a {
-        padding: 12px 24px 12px 32px;
-        border-top-left-radius: 50px;
-        min-width: 100px;
-        text-align: center;
-        margin-bottom: 14px;
-        }
+    #samegenre a {
+      padding: 12px 24px 12px 32px;
+      border-top-left-radius: 50px;
+      min-width: 100px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
 
-        #spotify {
-            grid-column: -3/-1;
-            grid-row: 2/3;
-            margin: 0 0 32px 0;
-        }
+    #spotify {
+      grid-column: -3/-1;
+      grid-row: 2/3;
+      margin: 0 0 32px 0;
+    }
 
-        #spotifywrapper {
-            max-width: 100%;
-        }
+    #spotifywrapper {
+      max-width: 100%;
+    }
 
-        #topsection {
-            border: none;
-        }
+    #topsection {
+      border: none;
+    }
 
-        #container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2vw;
-            margin-bottom: 40px;
-        }
-   }
+    #container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2vw;
+      margin-bottom: 40px;
+    }
+  }
 </style>
